@@ -1,0 +1,10 @@
+body{
+  margin-top: 30px;
+  /*color: #ffe6e6;*/
+}
+nav{
+  height: 80px;
+}
+nav,div.container{
+  height: auto;
+}
