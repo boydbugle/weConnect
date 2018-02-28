@@ -13,6 +13,25 @@ nav{
   height: 50px;
   margin-bottom: 0px;
 }
+#myCarousel img{
+  width: 100%;
+  height: 450px;
+}
+div.carousel-caption{
+  padding-bottom: 200px;
+}
+.carousel-caption h3,p{
+  color: #ff9900;
+  font-family: sans-serif;
+  font-style: oblique;
+  font-weight: 800;
+  font-size: 24px;
+}
+div.mainimage img{
+  height: 100%;
+  width: 100%;
+}
+
 /*#navtop{
     border: 0.1px solid;
     box-shadow: 0.5px 2px #888888;
