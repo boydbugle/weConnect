@@ -27,10 +27,24 @@ div.carousel-caption{
   font-weight: 800;
   font-size: 24px;
 }
-div.mainimage img{
+div.mainimage {
+  margin-top: 60px;
+  padding: 100px;
+  padding-left: 35%;
+  background-image: url("../images/streetbiz.jpg");
+  /*background-size: cover;*/
   height: 100%;
   width: 100%;
 }
+.centeredforms{
+  width: 250px;
+}
+/*.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /*transform: translate(-50%, -50%);*/
+}*/
 
 /*#navtop{
     border: 0.1px solid;
