@@ -27,11 +27,29 @@ div.carousel-caption{
   font-weight: 800;
   font-size: 24px;
 }
-div.mainimage {
+div.mainimagelogin {
   margin-top: 60px;
   padding: 100px;
   padding-left: 35%;
   background-image: url("../images/streetbiz.jpg");
+  /*background-size: cover;*/
+  height: 100%;
+  width: 100%;
+}
+div.mainimageregistration {
+  margin-top: 60px;
+  padding: 100px;
+  padding-left: 35%;
+  background-image: url("../images/streetwise.jpg");
+  /*background-size: cover;*/
+  height: 100%;
+  width: 100%;
+}
+div.mainimagelistbusiness {
+  margin-top: 60px;
+  padding: 100px;
+  padding-left: 35%;
+  background-image: url("../images/mall2.jpg");
   /*background-size: cover;*/
   height: 100%;
   width: 100%;
