@@ -1,0 +1,142 @@
+body{
+  margin-top: 30px;
+  background-image: url("../images/background2.jpg");
+  background-size: cover;
+}
+#topcontainer{
+  border: 0.5px solid #ffe0cc;
+  padding: 4px;
+  box-shadow: 1.5px 2px #888888;
+  background-color: #fff0e6;
+}
+nav{
+  height: 50px;
+  margin-bottom: 0px;
+}
+#myCarousel img{
+  width: 100%;
+  height: 450px;
+}
+div.carousel-caption{
+  padding-bottom: 200px;
+}
+.carousel-caption h3,p{
+  color: #ff9900;
+  font-family: sans-serif;
+  font-style: oblique;
+  font-weight: 800;
+  font-size: 24px;
+}
+div.mainimagelogin {
+  margin-top: 60px;
+  padding: 100px;
+  padding-left: 35%;
+  background-image: url("../images/streetbiz.jpg");
+  /*background-size: cover;*/
+  height: 100%;
+  width: 100%;
+}
+div.mainimageregistration {
+  margin-top: 60px;
+  padding: 100px;
+  padding-left: 35%;
+  background-image: url("../images/streetwise.jpg");
+  /*background-size: cover;*/
+  height: 100%;
+  width: 100%;
+}
+div.mainimagelistbusiness {
+  margin-top: 60px;
+  padding: 100px;
+  padding-left: 35%;
+  background-image: url("../images/mall2.jpg");
+  /*background-size: cover;*/
+  height: 100%;
+  width: 100%;
+}
+.centeredforms{
+  width: 250px;
+}
+#fontawesome{
+  width:100%;
+  height:280px;
+  padding-left: 80px;
+}
+#fontawesome div{
+  float: left;
+  padding: 50px;
+  margin:50px;
+}
+.spinners{
+  background-color: orange;
+  text-align: center;
+}
+.spinners p{
+  text-align: center;
+}
+footer.footer {
+    height: 120px;
+    width: 100%;
+    background-color: #333333;
+  }
+
+.footerContainer p{
+  text-align: center;
+}
+p.copyright {
+    color: #fff;
+    font-size: 15x;
+}
+#maincategories{
+  /*position:absolute;*/
+  width:100%;
+  height: 600px;
+  border:1px solid black;
+  padding-left: 80px;
+}
+#maincategories div{
+  float:left;
+  margin:20px;
+}
+.subcategory{
+  height:auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+.biztitle {
+  color: grey;
+  font-size: 18px;
+}
+
+.bizbtn {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a#star {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button.bizbtn:hover, a#star:hover {
+  opacity: 0.7;
+}
