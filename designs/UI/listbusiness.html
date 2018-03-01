@@ -52,15 +52,33 @@
         </ul>
       </div>
     </nav>
-    <!-- cover image and centered form-->
-    <div class="mainimagelogin">
+    <!-- cover image  -->
+    <div class="mainimagelistbusiness">
       <!-- login form -->
       <form class="centeredforms">
         <div class="form-group">
-          <input type="email" class="form-control" id="name" placeholder="your username">
+          <input type="text" class="form-control" id="Bname" placeholder="Business name" required="required">
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" id="password" placeholder="your password">
+          <input type="text" class="form-control" id="Btype" placeholder="Business type" required="required">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="Blocation" placeholder="Business location" required="required">
+        </div>
+        <div class="form-group">
+          <select class="form-control" id="Bhours" required="required">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="file" class="form-control-file" id="upload">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
