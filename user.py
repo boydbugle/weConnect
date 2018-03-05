@@ -1,4 +1,4 @@
-from flask import Flask,request
+# from flask import Flask,session
 
 USERS=[
     {
@@ -22,10 +22,7 @@ class User():
         self.email=None
         self.password=None
 
-    def get_users(self):
-        return USERS
-
-    def create_user(self,username,email,password):
+    def register_user(self,username,email,password):
         user = {
             "id":USERS[-1]['id'] + 1,
             "username":username,
@@ -34,3 +31,5 @@ class User():
         }
         USERS.append(user)
         return user
+    def login(self,username,password):
+        pass
