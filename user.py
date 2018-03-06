@@ -31,5 +31,10 @@ class User():
         }
         USERS.append(user)
         return user
-    def login(self,username,password):
-        pass
+    def login(self,email,password):
+        credentials = {
+            "email":email,
+            "password":password
+        }
+        user = [user for user in USERS if user['email'] == email and user['password'] == password]
+        return user

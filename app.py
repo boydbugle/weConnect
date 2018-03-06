@@ -1,15 +1,18 @@
 from flask import Flask,jsonify,abort,make_response,request,session
 from user import User,USERS
+import os
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 # Session(app)
 users=User()
 
 @app.route('/weConnect/api/v1/users', methods=['GET'])
 def get_users():
+    # session['username'] = 'user'
     return jsonify({"users":USERS})
 
-@app.route('/weConnect/api/v1/users', methods=['POST'])
+@app.route('/weConnect/api/v1/registeruser', methods=['POST'])
 def register_user():
     if not request.json:
         abort(400)
@@ -30,13 +33,22 @@ def register_user():
 
 @app.route('/weConnect/api/v1/login', methods=['POST'])
 def login():
-    # Session['id']=
+    if not request.json:
+        abort(400)
     data = request.get_json()
     email = data.get('email')
-    username = data.get('username')
     password = data.get('password')
-    users = USERS.get_users()
-    user = [user for user in users if user['id'] == user_id]
+    user = users.login(email,password)
+    session['useremail'] = user[0]['email']
+    if 'useremail' in session:
+        useremail = session['useremail']
+        return jsonify({'loggedin':useremail})
+    return jsonify({'status':"not logged"})
+
+@app.route('/weConnect/api/v1/logout', methods=['POST'])
+def logout():
+    session.pop('useremail', None)
+    return jsonify({'status':"logged out"})
 
 if __name__=='__main__':
     app.run(debug=True)
