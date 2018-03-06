@@ -48,7 +48,7 @@ class TestUserApiResponse(unittest.TestCase):
     def test_cannot_login_unregistered_user(self):
         req = self.login_helper()
         resp = json.loads(req.data.decode())
-        self.assertEqual(resp['error'],"Not an existing user")
+        self.assertEqual(resp['error'],"Not an existing user or wrong credentials")
         self.assertEqual(req.status_code, 401)
 
     def test_can_login_in_registered_user(self):
@@ -59,6 +59,13 @@ class TestUserApiResponse(unittest.TestCase):
         login_resp = json.loads(login_req.data.decode())
         self.assertEqual(login_resp['logged in'],"me.COM")
         self.assertEqual(login_req.status_code, 202)
+
+    def test_wrong_login_password(self):
+        register_req = self.register_user_helper(email="me.COM",password="m@m%")
+        login_req = self.login_helper(email="me.COM",password="m@m")
+        login_resp = json.loads(login_req.data.decode())
+        self.assertEqual(login_resp['error'],"Not an existing user or wrong credentials")
+        self.assertEqual(login_req.status_code, 401)
 
     def test_can_successfully_logout(self):
         req = self.test.post('/weConnect/api/v1/logout')

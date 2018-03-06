@@ -29,7 +29,7 @@ def login():
     password = data.get('password')
     user = users.login(email,password)
     if len(user) == 0:
-        return make_response(jsonify({'error': 'Not an existing user'}), 401)
+        return make_response(jsonify({'error': 'Not an existing user or wrong credentials'}), 401)
     session['useremail'] = user[0]['email']
     return make_response(jsonify({'logged in': session['useremail']}), 202)
 
