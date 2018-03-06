@@ -39,11 +39,11 @@ class TestUserApiResponse(unittest.TestCase):
         self.assertEqual(res.status_code, 201)
 
     def test_duplicate_registration_user(self):
-        self.register_user_helper("unique.COM","unique","un#Que")
-        register_res1 = self.register_user_helper(email="unique.COM",username="unique",password="un#Que")
+        self.register_user_helper("unique.COM","un#Que")
+        register_res1 = self.register_user_helper(email="unique.COM",password="un#Que")
         resp = json.loads(register_res1.data.decode())
-        self.assertEqual(resp['message'],"user in existence")
-        self.assertEqual(register_res1.status_code, 400)
+        self.assertEqual(resp['error'],"user in existence")
+        self.assertEqual(register_res1.status_code, 406)
 
 
 
