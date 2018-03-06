@@ -73,5 +73,22 @@ class TestUserApiResponse(unittest.TestCase):
         self.assertEqual(logout_resp['status'],'logged out successful')
         self.assertEqual(req.status_code, 200)
 
+    def test_reset_password(self):
+        register_req = self.register_user_helper(email="me.COM",password="m@m%")
+        login_req = self.login_helper(email="me.COM",password="m@m%")
+        credentials = {
+            "password":"m@m%",
+            "newpassword":"m@m"
+            }
+        reset_req = self.test.post('/weConnect/api/v1/resetpassword',
+                headers={'Content-Type': 'application/json'},
+                data=json.dumps(credentials)
+               )
+        reset_resp = json.loads(reset_req.data.decode())
+        self.assertEqual(reset_resp['message'],"successful password reset")
+        self.assertEqual(reset_req.status_code, 201)
+
+
+        
 if __name__ == '__main__':
     unittest.main()
