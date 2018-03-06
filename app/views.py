@@ -37,3 +37,14 @@ def login():
 def logout():
     session.pop('useremail', None)
     return make_response(jsonify({'status': 'logged out successful'}), 200)
+
+@app.route('/weConnect/api/v1/resetpassword', methods=['POST'])
+def reset_password():
+    if not request.json:
+        return make_response(jsonify({'error': 'Not acceptable'}), 406)
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    newpassword = data.get('newpassword')
+    user = users.reset_password(email,password,newpassword)
+    return make_response(jsonify({'message':'successful password reset'}), 201)
