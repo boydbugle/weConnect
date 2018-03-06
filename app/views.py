@@ -27,7 +27,7 @@ def register_user():
         if u == username:
             abort(400)
     user = users.register_user(username,email,password)
-    return jsonify({'user':user}), 200
+    return jsonify({'user':user}), 201
 
 @app.route('/weConnect/api/v1/login', methods=['POST'])
 def login():
