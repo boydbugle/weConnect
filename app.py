@@ -4,12 +4,10 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-# Session(app)
 users=User()
 
 @app.route('/weConnect/api/v1/users', methods=['GET'])
 def get_users():
-    # session['username'] = 'user'
     return jsonify({"users":USERS})
 
 @app.route('/weConnect/api/v1/registeruser', methods=['POST'])
