@@ -48,7 +48,8 @@ def login():
 @app.route('/weConnect/api/v1/logout', methods=['POST'])
 def logout():
     session.pop('useremail', None)
-    return jsonify({'status':"logged out"})
+    return jsonify({'status':"logged out successful"}), 200
 
+@app.route('/weConnect/api/v1/resetpassword', methods=['POST'])
 if __name__=='__main__':
     app.run(debug=True)
