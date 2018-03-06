@@ -63,7 +63,7 @@ class TestUserApiResponse(unittest.TestCase):
     def test_can_successfully_logout(self):
         req = self.test.post('/weConnect/api/v1/logout')
         logout_resp = json.loads(req.data.decode())
-        self.assertEqual(logout_resp['status','logged out successful'])
+        self.assertEqual(logout_resp['status'],'logged out successful')
         self.assertEqual(req.status_code, 200)
 
 if __name__ == '__main__':

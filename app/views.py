@@ -32,3 +32,8 @@ def login():
         return make_response(jsonify({'error': 'Not an existing user'}), 401)
     session['useremail'] = user[0]['email']
     return make_response(jsonify({'logged in': session['useremail']}), 202)
+
+@app.route('/weConnect/api/v1/logout', methods=['POST'])
+def logout():
+    session.pop('useremail', None)
+    return make_response(jsonify({'status': 'logged out successful'}), 200)
