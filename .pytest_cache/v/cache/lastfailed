@@ -1,7 +1,5 @@
 {
   "test_user.py::ApiResponseTest::test_userlist_get_allusers": true, 
-  "test_user.py::TestUserApiResponse::test_can_login_in_registered_user": true, 
-  "test_user.py::TestUserApiResponse::test_cannot_login_unregistered_user": true, 
   "test_user.py::TestUserApiResponse::test_wrong_login_password": true, 
   "tests/test_user.py": true
 }

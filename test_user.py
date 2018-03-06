@@ -53,13 +53,13 @@ class TestUserApiResponse(unittest.TestCase):
 
     def test_can_login_in_registered_user(self):
         register_req = self.register_user_helper(email="me.COM",password="m@m%")
-        register_resp = json.loads(req.data.decode())
-        self.assertEqual(req.status_code, 201)
+        register_resp = json.loads(register_req.data.decode())
+        self.assertEqual(register_req.status_code, 201)
         login_req = self.login_helper(email="me.COM",password="m@m%")
         login_resp = json.loads(login_req.data.decode())
-        self.assertEqual(login_resp['message'],"successful login")
+        self.assertEqual(login_resp['logged in'],"me.COM")
         self.assertEqual(login_req.status_code, 202)
-
+        
 
 if __name__ == '__main__':
     unittest.main()

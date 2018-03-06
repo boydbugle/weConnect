@@ -3,6 +3,7 @@ from app import app
 from user import User,USERS
 import os
 
+app.secret_key = os.urandom(24)
 users=User()
 
 @app.route('/weConnect/api/v1/registeruser', methods=['GET','POST'])
@@ -18,4 +19,16 @@ def register_user():
             return make_response(jsonify({'error': 'user in existence'}), 406)
     user = users.register_user(email,password)
     return make_response(jsonify({'message': 'successful registration'}), 201)
-    # return jsonify({'user':user}), 201
+
+@app.route('/weConnect/api/v1/login', methods=['POST'])
+def login():
+    if not request.json:
+        return make_response(jsonify({'error': 'Not acceptable'}), 406)
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    user = users.login(email,password)
+    if len(user) == 0:
+        return make_response(jsonify({'error': 'Not an existing user'}), 401)
+    session['useremail'] = user[0]['email']
+    return make_response(jsonify({'logged in': session['useremail']}), 202)
