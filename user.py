@@ -32,9 +32,9 @@ class User():
         USERS.append(user)
         return user
     def login(self,email,password):
-        credentials = {
-            "email":email,
-            "password":password
-        }
         user = [user for user in USERS if user['email'] == email and user['password'] == password]
+        return user
+    def reset_password(self,email,password,newpassword):
+        user = [user for user in USERS if user['email'] == email and user['password'] == password]
+        user[0]['password'] = newpassword
         return user

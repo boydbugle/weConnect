@@ -40,7 +40,7 @@ def login():
     session['useremail'] = user[0]['email']
     if 'useremail' in session:
         useremail = session['useremail']
-        return jsonify({'loggedin':useremail})
+        return jsonify({'loggedin':useremail}),200
     return jsonify({'status':"not logged"})
 
 @app.route('/weConnect/api/v1/logout', methods=['POST'])
@@ -49,5 +49,15 @@ def logout():
     return jsonify({'status':"logged out successful"}), 200
 
 @app.route('/weConnect/api/v1/resetpassword', methods=['POST'])
+def reset_password():
+    if not request.json:
+        abort(400)
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    newpassword = data.get('newpassword')
+    user = users.reset_password(email,password,newpassword)
+    return jsonify({'user':user}), 200
+
 if __name__=='__main__':
     app.run(debug=True)
