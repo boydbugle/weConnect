@@ -33,10 +33,10 @@ class TestUserApiResponse(unittest.TestCase):
                )
 
     def test_register_user(self):
-        res = self.register_user_helper()
-        resp = json.loads(res.data.decode())
+        req = self.register_user_helper()
+        resp = json.loads(req.data.decode())
         self.assertEqual(resp['message'],"successful registration")
-        self.assertEqual(res.status_code, 201)
+        self.assertEqual(req.status_code, 201)
 
     def test_duplicate_registration_user(self):
         self.register_user_helper("unique.COM","un#Que")
@@ -45,8 +45,20 @@ class TestUserApiResponse(unittest.TestCase):
         self.assertEqual(resp['error'],"user in existence")
         self.assertEqual(register_res1.status_code, 406)
 
+    def test_cannot_login_unregistered_user(self):
+        req = self.login_helper()
+        resp = json.loads(req.data.decode())
+        self.assertEqual(resp['error'],"Not an existing user")
+        self.assertEqual(req.status_code, 401)
 
-
+    def test_can_login_in_registered_user(self):
+        register_req = self.register_user_helper(email="me.COM",password="m@m%")
+        register_resp = json.loads(req.data.decode())
+        self.assertEqual(req.status_code, 201)
+        login_req = self.login_helper(email="me.COM",password="m@m%")
+        login_resp = json.loads(login_req.data.decode())
+        self.assertEqual(login_resp['message'],"successful login")
+        self.assertEqual(login_req.status_code, 202)
 
 
 if __name__ == '__main__':
