@@ -20,12 +20,12 @@ def register_user():
     password = data.get('password')
     allemails=[i['email'] for i in USERS if 'email' in i]
     allnames=[i['name'] for i in USERS if 'name' in i]
-    # for e in allemails[:]:
-    #     if e == email:
-    #         abort(400)
-    # for u in allnames[:]:
-    #     if u == username:
-    #         abort(400)
+    for e in allemails[:]:
+        if e == email:
+            abort(400)
+    for u in allnames[:]:
+        if u == username:
+            abort(400)
     user = users.register_user(username,email,password)
     return jsonify({'user':user}), 200
 
@@ -37,11 +37,13 @@ def login():
     email = data.get('email')
     password = data.get('password')
     user = users.login(email,password)
+    if len(user) == 0:
+        return jsonify({'status':"not logged"}), 401
     session['useremail'] = user[0]['email']
-    if 'useremail' in session:
-        useremail = session['useremail']
-        return jsonify({'loggedin':useremail}), 202
-    return jsonify({'status':"not logged"}), 401
+    # if 'useremail' in session:
+    useremail = session['useremail']
+    return jsonify({'loggedin':useremail}), 202
+
 
 @app.route('/weConnect/api/v1/logout', methods=['POST'])
 def logout():

@@ -19,13 +19,37 @@ class TestUserApiResponse(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
 
     def test_register_user(self):
-        res = self.test.post('/weConnect/api/v1/registeruser', data=self.credentials)
-        return self.test.post(
+        res = self.test.post(
                 '/weConnect/api/v1/registeruser',
                 headers={'Content-Type': 'application/json'},
                 data=json.dumps(self.credentials)
                )
-        # self.assertEqual(res , data=json.dumps(self.credentials)
+        self.assertEqual(res.status_code, 200)
+
+    def test_cannot_login_unregistered_user(self):
+        res = self.test.post(
+                '/weConnect/api/v1/login',
+                headers={'Content-Type': 'application/json'},
+                data=json.dumps(self.credentials)
+               )
+        self.assertEqual(res.status_code, 401)
+
+    # def test_can_login_in_registered_user(self):
+    #     res = self.test.post(
+    #             '/weConnect/api/v1/registeruser',
+    #             headers={'Content-Type': 'application/json'},
+    #             data=json.dumps(self.credentials)
+    #            )
+    #     self.assertEqual(res.status_code, 200)
+    #     res = self.test.post(
+    #             '/weConnect/api/v1/login',
+    #             headers={'Content-Type': 'application/json'},
+    #             data=json.dumps(self.credentials)
+    #            )
+    #     self.assertEqual(res.status_code, 202)
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
