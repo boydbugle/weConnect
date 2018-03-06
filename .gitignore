@@ -1,5 +1,4 @@
-venv
 .env
-user.pyc
+**/__Pycache__/*
 .pytest_cache
-_pycache
+.venv
