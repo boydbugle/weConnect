@@ -1,7 +1,5 @@
 {
-  "test_business.py::TestBusinessApiResponse": true, 
-  "test_business.py::TestBusinessApiResponse::test_can_register_business_successful": true, 
-  "test_business.py::TestBusinessApiResponse::test_get_all_business": true, 
   "test_user.py::ApiResponseTest::test_userlist_get_allusers": true, 
+  "test_user.py::TestUserApiResponse": true, 
   "tests/test_user.py": true
 }
