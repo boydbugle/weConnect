@@ -1,6 +1,6 @@
 BUSINESS=[
     {
-                "email":"B@BUG.COM",
+                "userid":1,
                 "businessname":"wishywashy",
                 "businesscategory":"laundry",
                 "businesslocation":"trm",
