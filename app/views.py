@@ -76,3 +76,7 @@ def register_business():
                 return make_response(jsonify({'message': 'business created successfully'}), 201)
     else:
         return make_response(jsonify({'Business':BUSINESS}), 200)
+
+
+# @app.route('/weConnect/api/v1/businesses', methods=['GET','PUT','DELETE'])
+# def specific_business():
