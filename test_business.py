@@ -53,14 +53,16 @@ class TestBusinessApiResponse(unittest.TestCase):
         self.assertEqual(business_req.status_code, 201)
 
     def test_can_get_all_businesses(self):
-        self.register_business_helper()
+        req = self.register_business_helper()
         res = self.test.get('/weConnect/api/v1/businesses')
         resp = json.loads(res.data.decode())
         self.assertTrue('Business')
 
-    # def test_can_get_business_by_id(self):
-    #     self.register_business_helper()
-
+    def test_can_get_business_by_id(self):
+        req = self.register_business_helper()
+        res = self.test.get('/weConnect/api/v1/businesses/1')
+        resp = json.loads(res.data.decode())
+        self.assertTrue('Business')
 
 if __name__=='__main__':
     unittest.main()
