@@ -38,24 +38,29 @@ class TestBusinessApiResponse(unittest.TestCase):
                     "userid":loggeduserid,
                     "businessname":businessname,
                     "businesscategory":businesscategory,
-                    "businesslocation":businesslocation,
+                    "businesslocation":businesslocation
                 }
         return self.test.post('/weConnect/api/v1/businesses',
-                headers={'Content-Type': 'application/json'},
+                headers={'Content-Type': 'application/json',
+                        'Authorization':'Bearer' + 'loggeduserid'},
                 data=json.dumps(businessdata)
                )
 
-    def test_can_register_business_successful(self):
+    def test_can_register_business_successfully(self):
         business_req = self.register_business_helper()
         business_resp = json.loads(business_req.data.decode())
         self.assertEqual(business_resp['message'],"business created successfully")
         self.assertEqual(business_req.status_code, 201)
 
-    def test_get_all_business(self):
+    def test_can_get_all_businesses(self):
         self.register_business_helper()
         res = self.test.get('/weConnect/api/v1/businesses')
-        res = json.loads(res.data.decode())
+        resp = json.loads(res.data.decode())
         self.assertTrue('Business')
+
+    # def test_can_get_business_by_id(self):
+    #     self.register_business_helper()
+
 
 if __name__=='__main__':
     unittest.main()

@@ -1,5 +1,4 @@
 {
   "test_user.py::ApiResponseTest::test_userlist_get_allusers": true, 
-  "test_user.py::TestUserApiResponse": true, 
   "tests/test_user.py": true
 }

@@ -1,12 +1,10 @@
 BUSINESS=[
-    {
+            {
                 "userid":1,
                 "businessid":1,
                 "businessname":"wishywashy",
                 "businesscategory":"laundry",
-                "businesslocation":"trm",
-                # "reviews"=[]
-
+                "businesslocation":"trm"
             }
 ]
 class Business():
@@ -26,3 +24,5 @@ class Business():
             }
             BUSINESS.append(business)
             return business
+
+    
