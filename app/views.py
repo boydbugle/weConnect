@@ -47,4 +47,6 @@ def reset_password():
     password = data.get('password')
     newpassword = data.get('newpassword')
     user = users.reset_password(email,password,newpassword)
+    if len(user) != 0:
+        user[0]['password'] = newpassword
     return make_response(jsonify({'message':'successful password reset'}), 201)

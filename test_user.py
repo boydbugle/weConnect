@@ -77,6 +77,7 @@ class TestUserApiResponse(unittest.TestCase):
         register_req = self.register_user_helper(email="me.COM",password="m@m%")
         login_req = self.login_helper(email="me.COM",password="m@m%")
         credentials = {
+            # "email":"me.COM",
             "password":"m@m%",
             "newpassword":"m@m"
             }
@@ -85,10 +86,10 @@ class TestUserApiResponse(unittest.TestCase):
                 data=json.dumps(credentials)
                )
         reset_resp = json.loads(reset_req.data.decode())
-        self.assertEqual(reset_resp['message'],"successful password reset")
+        self.assertEqual(reset_resp['message'],'successful password reset')
         self.assertEqual(reset_req.status_code, 201)
 
 
-        
+
 if __name__ == '__main__':
     unittest.main()
