@@ -1,10 +1,13 @@
 from flask import Flask,jsonify,abort,make_response,request,session
 from app import app
 from user import User,USERS
+from business import Business,BUSINESS
 import os
 
 app.secret_key = os.urandom(24)
 users=User()
+business=Business()
+
 
 @app.route('/weConnect/api/v1/registeruser', methods=['GET','POST'])
 def register_user():
