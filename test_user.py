@@ -57,8 +57,8 @@ class TestUserApiResponse(unittest.TestCase):
         self.assertEqual(register_req.status_code, 201)
         login_req = self.login_helper(email="me.COM",password="m@m%")
         login_resp = json.loads(login_req.data.decode())
-        loggeduser = json.loads(login_req.data.decode())['logged in']
-        self.assertEqual(login_resp['logged in'],loggeduser)
+        loggeduserid = json.loads(login_req.data.decode())['userid']
+        self.assertEqual(login_resp['userid'],loggeduserid)
         self.assertEqual(login_req.status_code, 202)
 
     def test_wrong_login_password(self):

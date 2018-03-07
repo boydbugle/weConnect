@@ -4,9 +4,10 @@ from user import User,USERS
 # from business import Business,BUSINESS
 import os
 
-
+app.secret_key = os.urandom(24)
 users=User()
 # business=Business()
+
 
 @app.route('/weConnect/api/v1/registeruser', methods=['GET','POST'])
 def register_user():
@@ -32,8 +33,9 @@ def login():
     user = users.login(email,password)
     if len(user) == 0:
         return make_response(jsonify({'error': 'Not an existing user or wrong credentials'}), 401)
-    loggeduser = user[0]['email']
-    return make_response(jsonify({'logged in': loggeduser}), 202)
+    loggeduser = user[0]['id']
+    session['useremail'] = user[0]['email']
+    return make_response(jsonify({'userid': loggeduser}), 202)
 
 @app.route('/weConnect/api/v1/logout', methods=['POST'])
 def logout():
