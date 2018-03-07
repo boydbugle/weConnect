@@ -73,4 +73,4 @@ def register_business():
             businesscategory = data.get('businesscategory')
             businesslocation = data.get('businesslocation')
             business.register_business(userid,businessname,businesscategory,businesslocation)
-            return make_response(jsonify({'message': 'business created successfully'}), 201)
+            return make_response(jsonify({'message':'business created successfully'}), 201)
