@@ -9,23 +9,20 @@ class TestUserApiResponse(unittest.TestCase):
     def setUp(self):
         self.test = app.test_client()
 
-    def tearDown(self):
-        pass
-
-    def register_user_helper(self,email="unique@unique",password="u#n~q"):
+    def register_user_helper(self,email='unique@unique',password='u#n~q'):
         credentials = {
-            "email":email,
-            "password":password
+            'email':email,
+            'password':password
             }
         return self.test.post('/weConnect/api/v1/registeruser',
                 headers={'Content-Type': 'application/json'},
                 data=json.dumps(credentials)
                )
 
-    def login_helper(self,email="unique@unique",password="u#n~q"):
+    def login_helper(self,email='unique@unique',password='u#n~q'):
         credentials = {
-            "email":email,
-            "password":password
+            'email':email,
+            'password':password
             }
         return self.test.post('/weConnect/api/v1/login',
                 headers={'Content-Type': 'application/json'},
@@ -33,61 +30,61 @@ class TestUserApiResponse(unittest.TestCase):
                )
 
     def test_register_user(self):
-        req = self.register_user_helper()
-        resp = json.loads(req.data.decode())
-        self.assertEqual(resp['message'],"successful registration")
-        self.assertEqual(req.status_code, 201)
+        res = self.register_user_helper()
+        result= json.loads(res.data.decode())
+        self.assertEqual(result['message'],'successful registration')
+        self.assertEqual(res.status_code, 201)
 
     def test_duplicate_registration_user(self):
-        self.register_user_helper("unique.COM","un#Que")
-        register_res1 = self.register_user_helper(email="unique.COM",password="un#Que")
-        resp = json.loads(register_res1.data.decode())
-        self.assertEqual(resp['error'],"user in existence")
-        self.assertEqual(register_res1.status_code, 406)
+        self.register_user_helper('unique.COM','un#Que')
+        res2 = self.register_user_helper(email='unique.COM',password='un#Que')
+        result = json.loads(res2.data.decode())
+        self.assertEqual(result['error'],'user in existence')
+        self.assertEqual(res2.status_code, 406)
 
     def test_cannot_login_unregistered_user(self):
-        req = self.login_helper()
-        resp = json.loads(req.data.decode())
-        self.assertEqual(resp['error'],"Not an existing user or wrong credentials")
-        self.assertEqual(req.status_code, 401)
+        res = self.login_helper()
+        result = json.loads(res.data.decode())
+        self.assertEqual(result['error'],'Not an existing user or wrong credentials')
+        self.assertEqual(res.status_code, 401)
 
     def test_can_login_in_registered_user(self):
-        register_req = self.register_user_helper(email="me.COM",password="m@m%")
-        register_resp = json.loads(register_req.data.decode())
-        self.assertEqual(register_req.status_code, 201)
-        login_req = self.login_helper(email="me.COM",password="m@m%")
-        login_resp = json.loads(login_req.data.decode())
-        loggeduserid = json.loads(login_req.data.decode())['userid']
-        self.assertEqual(login_resp['userid'],loggeduserid)
-        self.assertEqual(login_req.status_code, 202)
+        register_res = self.register_user_helper(email='me.COM',password='m@m%')
+        register_result = json.loads(register_res.data.decode())
+        self.assertEqual(register_res.status_code, 201)
+        login_res = self.login_helper(email='me.COM',password='m@m%')
+        login_result = json.loads(login_res.data.decode())
+        loggeduserid = json.loads(login_res.data.decode())['userid']
+        self.assertEqual(login_result['userid'],loggeduserid)
+        self.assertEqual(login_res.status_code, 202)
 
     def test_wrong_login_password(self):
-        register_req = self.register_user_helper(email="me.COM",password="m@m%")
-        login_req = self.login_helper(email="me.COM",password="m@m")
-        login_resp = json.loads(login_req.data.decode())
-        self.assertEqual(login_resp['error'],"Not an existing user or wrong credentials")
-        self.assertEqual(login_req.status_code, 401)
+        register_res = self.register_user_helper(email='me.COM',password='m@m%')
+        login_res = self.login_helper(email='me.COM',password='m@m')
+        login_result = json.loads(login_res.data.decode())
+        self.assertEqual(login_result['error'],'Not an existing user or wrong credentials')
+        self.assertEqual(login_res.status_code, 401)
 
     def test_can_successfully_logout(self):
-        req = self.test.post('/weConnect/api/v1/logout')
-        logout_resp = json.loads(req.data.decode())
-        self.assertEqual(logout_resp['status'],'logged out successful')
-        self.assertEqual(req.status_code, 200)
+        res = self.test.post('/weConnect/api/v1/logout')
+        logout_result = json.loads(res.data.decode())
+        self.assertEqual(logout_result['status'],'logged out successful')
+        self.assertEqual(res.status_code, 200)
 
     def test_reset_password(self):
-        register_req = self.register_user_helper(email="me.COM",password="m@m%")
-        login_req = self.login_helper(email="me.COM",password="m@m%")
+        register_res = self.register_user_helper(email='me.COM',password='m@m%')
+        login_res = self.login_helper(email='me.COM',password='m@m%')
         credentials = {
-            "password":"m@m%",
-            "newpassword":"m@m"
+            'password':'m@m%',
+            'newpassword':'m@m'
             }
-        reset_req = self.test.post('/weConnect/api/v1/resetpassword',
+        reset_res = self.test.post('/weConnect/api/v1/resetpassword',
                 headers={'Content-Type': 'application/json'},
                 data=json.dumps(credentials)
                )
-        reset_resp = json.loads(reset_req.data.decode())
-        self.assertEqual(reset_resp['message'],'successful password reset')
-        self.assertEqual(reset_req.status_code, 201)
+        reset_result = json.loads(reset_res.data.decode())
+        self.assertEqual(reset_result['message'],'successful password reset')
+        self.assertEqual(reset_res.status_code, 201)
 
 
 
