@@ -3,50 +3,54 @@ import json
 import os
 from app import app
 
+
 class TestBusinessApiResponse(unittest.TestCase):
 
     def setUp(self):
         self.test = app.test_client()
 
-    def register_user_helper(self,email='unique@unique',password='u#n~q'):
+    def register_user_helper(self, email='unique@unique', password='u#n~q'):
         credentials = {
-            'email':email,
-            'password':password
-            }
+            'email': email,
+            'password': password
+        }
         return self.test.post('/weConnect/api/v1/registeruser',
-                headers={'Content-Type': 'application/json'},
-                data=json.dumps(credentials)
-               )
+                              headers={'Content-Type': 'application/json'},
+                              data=json.dumps(credentials)
+                              )
 
-    def login_helper(self,email='unique@unique',password='u#n~q'):
+    def login_helper(self, email='unique@unique', password='u#n~q'):
         credentials = {
-            'email':email,
-            'password':password
-            }
+            'email': email,
+            'password': password
+        }
         return self.test.post('/weConnect/api/v1/login',
-                headers={'Content-Type': 'application/json'},
-                data=json.dumps(credentials)
-               )
-    def register_business_helper(self,businessname='wishywashy',businesscategory='laundry',businesslocation='trm'):
+                              headers={'Content-Type': 'application/json'},
+                              data=json.dumps(credentials)
+                              )
+
+    def register_business_helper(self, businessname='wishywashy',
+                                 businesscategory='laundry',
+                                 businesslocation='trm'):
         self.register_user_helper()
         login_res = self.login_helper()
-        loggeduser = json.loads(login_res.data.decode())['useremail']
+        token = json.loads(login_res.data.decode())['token']
         businessdata = {
-                    'useremail':loggeduser,
-                    'businessname':businessname,
-                    'businesscategory':businesscategory,
-                    'businesslocation':businesslocation
-                }
+            'useremail': token,
+            'businessname': businessname,
+            'businesscategory': businesscategory,
+            'businesslocation': businesslocation
+        }
         return self.test.post('/weConnect/api/v1/businesses',
-                headers={'Content-Type': 'application/json',
-                        'Authorization':'Bearer ' + loggeduser},
-                data=json.dumps(businessdata)
-               )
+                              headers={'Content-Type': 'application/json',
+                                       'Authorization': 'Bearer ' + token},
+                              data=json.dumps(businessdata)
+                              )
 
     def test_can_register_business_successfully(self):
         business_res = self.register_business_helper()
         business_result = json.loads(business_res.data.decode())
-        self.assertEqual(business_result['message'],'business created successfully')
+        self.assertEqual(business_result['message'], 'business created successfully')
         self.assertEqual(business_res.status_code, 201)
 
     def test_can_get_all_businesses(self):
@@ -68,25 +72,28 @@ class TestBusinessApiResponse(unittest.TestCase):
     #     self.assertEqual('Haile sellasie', BUSINESS[0]['location'])
     #
     # def test_owner_can_update_business(self):
-    #     self.register_business_helper()
+    #     res = self.register_business_helper()
     #     editcredentials = {
     #                 'businessname':'wizshine',
     #                 'businesscategory':'house cleaning',
     #                 'businesslocation':'moi avenue'
     #             }
-    #     res = self.test.post('/weConnect/api/v1/businesses/1',
+    #     bizid = json.loads(res.data.decode())['business']
+    #     res2 = self.test.post('/weConnect/api/v1/businesses/{}'.format(bizid),
     #             headers={'Content-Type': 'application/json'},
     #             data = json.dumps(editcredentials)
     #             )
-    #     result = json.loads(res.data.decode())
+    #     result = json.loads(res2.data.decode())
     #     self.assertEqual(result['message'],'successfully updated business')
-    #     self.assertEqual(res.status_code, 200)
+    #     self.assertTrue(result['updated'])
+    #     self.assertEqual(res2.status_code, 200)
     #
     # def test_owner_can_delete_business(self):
     #     self.register_business_helper()
     #     res = self.test.delete('/weConnect/api/v1/businesses/1')
     #     self.assertEqual(res.status_code, 200)
-    #
+    # #
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     unittest.main()
