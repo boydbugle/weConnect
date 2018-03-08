@@ -54,8 +54,8 @@ class TestUserApiResponse(unittest.TestCase):
         self.assertEqual(register_res.status_code, 201)
         login_res = self.login_helper(email='me.COM',password='m@m%')
         login_result = json.loads(login_res.data.decode())
-        loggeduserid = json.loads(login_res.data.decode())['userid']
-        self.assertEqual(login_result['userid'],loggeduserid)
+        loggeduser = json.loads(login_res.data.decode())['token']
+        self.assertEqual(login_result['message'],'loggedin successfully')
         self.assertEqual(login_res.status_code, 202)
 
     def test_wrong_login_password(self):
@@ -66,20 +66,27 @@ class TestUserApiResponse(unittest.TestCase):
         self.assertEqual(login_res.status_code, 401)
 
     def test_can_successfully_logout(self):
-        res = self.test.post('/weConnect/api/v1/logout')
+        register_res = self.register_user_helper(email='me.COM',password='m@m%')
+        login_res = self.login_helper(email='me.COM',password='m@m%')
+        token = json.loads(login_res.data.decode())['token']
+        res = self.test.post('/weConnect/api/v1/logout',
+                            headers={'Authorization':'Bearer ' + token}
+                            )
         logout_result = json.loads(res.data.decode())
-        self.assertEqual(logout_result['status'],'logged out successful')
+        self.assertEqual(logout_result['message'],'logged out successful')
+        self.assertFalse(logout_result['token'])
         self.assertEqual(res.status_code, 200)
 
     def test_reset_password(self):
         register_res = self.register_user_helper(email='me.COM',password='m@m%')
         login_res = self.login_helper(email='me.COM',password='m@m%')
+        token = json.loads(login_res.data.decode())['token']
         credentials = {
             'password':'m@m%',
             'newpassword':'m@m'
             }
         reset_res = self.test.post('/weConnect/api/v1/resetpassword',
-                headers={'Content-Type': 'application/json'},
+                headers={'Content-Type': 'application/json','Authorization':'Bearer ' + token},
                 data=json.dumps(credentials)
                )
         reset_result = json.loads(reset_res.data.decode())

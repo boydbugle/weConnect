@@ -31,26 +31,36 @@ def login():
     email = data.get('email')
     password = data.get('password')
     user = users.login(email,password)
-    if len(user) == 0:
+    if user:
+        loggeduser = user['email']
+        return make_response(jsonify({
+                'message':'loggedin successfully',
+                'token': loggeduser}), 202)
+    else:
         return make_response(jsonify({'error': 'Not an existing user or wrong credentials'}), 401)
-    loggeduser = user[0]['email']
-    session['useremail'] = user[0]['email']
-    return make_response(jsonify({'useremail': loggeduser}), 202)
-
 @app.route('/weConnect/api/v1/logout', methods=['POST'])
 def logout():
-    session.pop('useremail', None)
-    return make_response(jsonify({'status': 'logged out successful'}), 200)
+    auth_header = request.headers.get('Authorization')
+    token = auth_header.split(' ')[1]
+    print token
+    if token:
+        token = ''
+        return make_response(jsonify({'message': 'logged out successful',
+                                  'token': ''
+                                    }), 200)
 
 @app.route('/weConnect/api/v1/resetpassword', methods=['POST'])
 def reset_password():
-    data = request.get_json()
-    if not request.json:
-        return make_response(jsonify({'error': 'Not acceptable'}), 406)
-    email = data.get('email')
-    password = data.get('password')
-    newpassword = data.get('newpassword')
-    user = users.reset_password(email,password,newpassword)
+    auth_header = request.headers.get('Authorization')
+    token = auth_header.split(' ')[1]
+    if token:
+        data = request.get_json()
+        if not request.json:
+            return make_response(jsonify({'error': 'Not acceptable'}), 406)
+        email = data.get('email')
+        password = data.get('password')
+        newpassword = data.get('newpassword')
+        user = users.reset_password(email,password,newpassword)
     if len(user) != 0:
         user[0]['password'] = newpassword
     return make_response(jsonify({'message':'successful password reset'}), 201)
