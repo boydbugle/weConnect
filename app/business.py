@@ -14,9 +14,9 @@ class Business():
         self.businesscategory=None
         self.businesslocation=None
 
-    def register_business(self,userid,businessname,businesscategory,businesslocation):
+    def register_business(self,useremail,businessname,businesscategory,businesslocation):
             business = {
-                'userid':userid,
+                'useremail':useremail,
                 'businessid':BUSINESS[-1]['businessid'] + 1,
                 'businessname':businessname,
                 'businesscategory':businesscategory,
@@ -25,12 +25,12 @@ class Business():
             BUSINESS.append(business)
             return business
 
-    def get_single_business(self,businessid):
-        business = [business for business in BUSINESS if BUSINESS['businessid'] == businessid]
-        return business
+    # def get_single_business(self,businessid):
+    #     business = [business for business in BUSINESS if BUSINESS['businessid'] == businessid]
+    #     return business
 
     def update_business(self,businessid):
-        business = [business for business in BUSINESS if BUSINESS['businessid'] == businessid and BUSINESS['userid'] == userid]
+        business = [business for business in BUSINESS if BUSINESS['businessid'] == businessid and BUSINESS['useremail'] == useremail]
         business[0]['businessname'] = businessname
         business[0]['businesscategory'] = businesscategory
         business[0]['businesslocation'] = businesslocation

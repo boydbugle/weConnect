@@ -33,9 +33,9 @@ def login():
     user = users.login(email,password)
     if len(user) == 0:
         return make_response(jsonify({'error': 'Not an existing user or wrong credentials'}), 401)
-    loggeduser = user[0]['id']
+    loggeduser = user[0]['email']
     session['useremail'] = user[0]['email']
-    return make_response(jsonify({'userid': loggeduser}), 202)
+    return make_response(jsonify({'useremail': loggeduser}), 202)
 
 @app.route('/weConnect/api/v1/logout', methods=['POST'])
 def logout():
@@ -57,27 +57,29 @@ def reset_password():
 
 @app.route('/weConnect/api/v1/businesses', methods=['GET','POST'])
 def register_business():
+    auth_header = request.headers.get('Authorization')
+    loggeduser = auth_header.split(' ')[1]
     if request.method == 'POST':
-        if request.json:
+        # if request.json:
+        #     data = request.get_json()
+        #     email = data.get('email')
+        #     password = data.get('password')
+        #     user = users.register_user(email,password)
+        #     user = users.login(email,password)
+        #     loggeduser = user[0]['id']
+        if loggeduser:
             data = request.get_json()
-            email = data.get('email')
-            password = data.get('password')
-            user = users.register_user(email,password)
-            user = users.login(email,password)
-            loggeduser = user[0]['id']
-            if loggeduser:
-                data = request.get_json()
-                userid = loggeduser,
-                businessname = data.get('businessname')
-                businesscategory = data.get('businesscategory')
-                businesslocation = data.get('businesslocation')
-                business.register_business(userid,businessname,businesscategory,businesslocation)
-                return make_response(jsonify({'message': 'business created successfully'}), 201)
+            useremail = loggeduser,
+            businessname = data.get('businessname')
+            businesscategory = data.get('businesscategory')
+            businesslocation = data.get('businesslocation')
+            business.register_business(useremail,businessname,businesscategory,businesslocation)
+            return make_response(jsonify({'message': 'business created successfully'}), 201)
     else:
         return make_response(jsonify({'Business':BUSINESS}), 200)
 
 
-# @app.route('/weConnect/api/v1/businesses/<int:id>', methods=['PUT'])
+# @app.route('/weConnect/api/v1/businesses/<int:id>', methods=['GET','PUT','DELETE'])
 # def update_business(businessid):
     # business = business.update_business(businessid)
     # task = [task for task in tasks if task['id'] == task_id]
