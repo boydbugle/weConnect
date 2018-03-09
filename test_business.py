@@ -42,8 +42,7 @@ class TestBusinessApiResponse(unittest.TestCase):
             'businesslocation': businesslocation
         }
         return self.test.post('/weConnect/api/v1/businesses',
-                              headers={'Content-Type': 'application/json',
-                                       'Authorization': 'Bearer ' + token},
+                              headers={'Content-Type': 'application/json'},
                               data=json.dumps(businessdata)
                               )
 

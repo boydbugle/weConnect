@@ -7,7 +7,7 @@ python3.5
 
 ## installation
 clone the repo:
-``` 
+```
 $https://github.com/boydbugle/weConnect.git
 ```
 
@@ -24,8 +24,9 @@ $ virtualenv --python=python3.5 virtualenv-name
 
 activate the virtual environment:
 ```
-$ source virtualenv-name/bin/activate 
-```
+$ source virtualenv-name/bin/activate
+
+``
 
 use virtualenv-wrapper alternative:
 ```
@@ -33,8 +34,24 @@ $ mkvirtualenv --python=python3.5 virtualenv-name
 ```
 
 to use it:
-``` 
+```
 $ workon virtualenv-name
 ```
 
-remember to run ``` $ pip install -r requirrements.txt ```to install libraries
+remember to run ``` $ pip install -r requirements.txt ```to install libraries
+
+
+## API endpoints
+| Endpoint | Functionality |
+| --- | --- |
+| `POST /api/auth/register` | Creates a user account |
+| `POST /api/auth/login` | Logs in a user |
+| `POST /api/auth/logout` | Logs out a user |
+| `POST /api/auth/reset-password` | Password reset |
+| `POST  /api/businesses` | Register a busines |
+| `PUT /api/businesses/<businessId>` | Updates a business profile |
+| `DELETE /api//businesses/<businessId>` | Remove a business |
+| ` GET  /api/businesses` | Retrieves all businesses |
+| `GET  /api/businesses/<businessId>` | Get a business |
+| `POST/api/businesses/<businessId>/reviews` | Add a review for a business |
+| `GET/api/businesses/<businessId>/reviews` | Get all reviews for a business |

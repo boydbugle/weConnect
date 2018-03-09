@@ -2,10 +2,10 @@ import random
 from flask import Flask, jsonify, abort, make_response, request, session
 from app import app
 from app.user import User, USERS
-from app.business import Business
+from app.business import Business, BUSINESS
 
 users = User()
-# business = Business()
+business = Business()
 allBusinesses = []
 
 
@@ -72,30 +72,49 @@ def reset_password():
 
 @app.route('/weConnect/api/v1/businesses', methods=['GET', 'POST'])
 def register_business():
-    auth_header = request.headers.get('Authorization')
-    token = auth_header.split(' ')[1]
-    print auth_header
-    print token
     if request.method == 'POST':
         try:
-            if token:
-                data = request.get_json()
-                useremail = token,
-                businessname = data.get('businessname')
-                businesscategory = data.get('businesscategory')
-                businesslocation = data.get('businesslocation')
-                biz = business.register_business(
-                    useremail, businessname, businesscategory, businesslocation)
-                return make_response(jsonify({
-                    'message': 'business created successfully',
-                    'business': biz['businessid']
-                }), 201)
-            return make_response(jsonify({'message': 'not created'}), 201)
+            data = request.get_json()
+            useremail = token,
+            businessname = data.get('businessname')
+            businesscategory = data.get('businesscategory')
+            businesslocation = data.get('businesslocation')
+            biz = business.register_business(
+                useremail, businessname, businesscategory, businesslocation)
+            return make_response(jsonify({
+                'message': 'business created successfully',
+                'business': biz['businessid']
+            }), 201)
+        # return make_response(jsonify({'message': 'not created'}), 201)
         except Exception as e:
             response = {'message': str(e)}
             return response
     else:
         return make_response(jsonify({'Business': BUSINESS}), 200)
+    # auth_header = request.headers.get('Authorization')
+    # token = auth_header.split(' ')[1]
+    # print (auth_header)
+    # print (token)
+    # if request.method == 'POST':
+    #     try:
+    #         if token:
+    #             data = request.get_json()
+    #             useremail = token,
+    #             businessname = data.get('businessname')
+    #             businesscategory = data.get('businesscategory')
+    #             businesslocation = data.get('businesslocation')
+    #             biz = business.register_business(
+    #                 useremail, businessname, businesscategory, businesslocation)
+    #             return make_response(jsonify({
+    #                 'message': 'business created successfully',
+    #                 'business': biz['businessid']
+    #             }), 201)
+    #         return make_response(jsonify({'message': 'not created'}), 201)
+    #     except Exception as e:
+    #         response = {'message': str(e)}
+    #         return response
+    # else:
+    #     return make_response(jsonify({'Business': BUSINESS}), 200)
 
 
 # @app.route('/weConnect/api/v1/businesses/<int:businessid>', methods=['GET', 'PUT', 'DELETE'])
