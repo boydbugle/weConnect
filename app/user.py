@@ -1,7 +1,3 @@
-# import sys
-# print(sys.version)
-
-
 USERS = [
     {
         "id": 1,

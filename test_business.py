@@ -74,17 +74,17 @@ class TestBusinessApiResponse(unittest.TestCase):
     # def test_owner_can_update_business(self):
     #     res = self.register_business_helper()
     #     editcredentials = {
-    #         'businessname': 'wizshine',
-    #         'businesscategory': 'house cleaning',
-    #         'businesslocation': 'moi avenue'
-    #     }
+    #                 'businessname':'wizshine',
+    #                 'businesscategory':'house cleaning',
+    #                 'businesslocation':'moi avenue'
+    #             }
     #     bizid = json.loads(res.data.decode())['business']
     #     res2 = self.test.post('/weConnect/api/v1/businesses/{}'.format(bizid),
-    #                           headers={'Content-Type': 'application/json'},
-    #                           data=json.dumps(editcredentials)
-    #                           )
+    #             headers={'Content-Type': 'application/json'},
+    #             data = json.dumps(editcredentials)
+    #             )
     #     result = json.loads(res2.data.decode())
-    #     self.assertEqual(result['message'], 'successfully updated business')
+    #     self.assertEqual(result['message'],'successfully updated business')
     #     self.assertTrue(result['updated'])
     #     self.assertEqual(res2.status_code, 200)
     #

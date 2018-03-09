@@ -1,12 +1,9 @@
-import os
-import sys
 import random
 from flask import Flask, jsonify, abort, make_response, request, session
 from app import app
 from app.user import User, USERS
 from app.business import Business
 
-app.secret_key = os.urandom(24)
 users = User()
 # business = Business()
 allBusinesses = []
@@ -41,7 +38,8 @@ def login():
             'message': 'loggedin successfully',
             'token': loggeduser}), 202)
     else:
-        return make_response(jsonify({'error': 'Not an existing user or wrong credentials'}), 401)
+        return make_response(jsonify({
+            'error': 'Not an existing user or wrong credentials'}), 401)
 
 
 @app.route('/weConnect/api/v1/logout', methods=['POST'])
@@ -68,7 +66,8 @@ def reset_password():
         return make_response(jsonify({'message': 'successful password reset',
                                       'user': reset}), 201)
     else:
-        return make_response(jsonify({'message': 'unsuccessful password reset'}), 201)
+        return make_response(jsonify({
+            'message': 'unsuccessful password reset'}), 201)
 
 
 @app.route('/weConnect/api/v1/businesses', methods=['GET', 'POST'])
@@ -77,58 +76,26 @@ def register_business():
     token = auth_header.split(' ')[1]
     print auth_header
     print token
-    if token:
-        email = token
-        if request.method == 'POST':
-            data = request.get_json()
-            userEmail = token,
-            businessId = random.randint(1, 10000)
-            businessName = data.get('businessname')
-            businessCategory = data.get('businesscategory')
-            businessLocation = data.get('businesslocation')
-            try:
-                allBusinesses.append(Business(userEmail,
-                                              businessId, businessName,
-                                              businessCategory,
-                                              businessLocation))
-                businessNames = [bisnes.businessName for bisnes in allBusinesses]
+    if request.method == 'POST':
+        try:
+            if token:
+                data = request.get_json()
+                useremail = token,
+                businessname = data.get('businessname')
+                businesscategory = data.get('businesscategory')
+                businesslocation = data.get('businesslocation')
+                biz = business.register_business(
+                    useremail, businessname, businesscategory, businesslocation)
                 return make_response(jsonify({
                     'message': 'business created successfully',
-                    'business': businessNames,
-                    # 'id': businessIds
+                    'business': biz['businessid']
                 }), 201)
-            except Exception as e:
-                response = {'message': str(e)}
-                return jsonify(response)
-        for bisnes in allBusinesses:
-            bizinstance = [{
-                'id': bisnes.businessid,
-                'name': bisnes.businessName,
-                'category': bisnes.businessCategory,
-                'location': bisnes.businessLocation,
-                'email': userEmail
-            }]
-        return make_response(jsonify({'business': bizinstance}), 200)
-    # if request.method == 'POST':
-    #     try:
-    #         if token:
-    #             data = request.get_json()
-    #             useremail = token,
-    #             businessname = data.get('businessname')
-    #             businesscategory = data.get('businesscategory')
-    #             businesslocation = data.get('businesslocation')
-    #             biz = business.register_business(
-    #                 useremail, businessname, businesscategory, businesslocation)
-    #             return make_response(jsonify({
-    #                 'message': 'business created successfully',
-    #                 'business': biz['businessid']
-    #             }), 201)
-    #         return make_response(jsonify({'message': 'not created'}), 201)
-    #     except Exception as e:
-    #         response = {'message': str(e)}
-    #         return response
-    # else:
-    #     return make_response(jsonify({'Business': BUSINESS}), 200)
+            return make_response(jsonify({'message': 'not created'}), 201)
+        except Exception as e:
+            response = {'message': str(e)}
+            return response
+    else:
+        return make_response(jsonify({'Business': BUSINESS}), 200)
 
 
 # @app.route('/weConnect/api/v1/businesses/<int:businessid>', methods=['GET', 'PUT', 'DELETE'])
