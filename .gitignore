@@ -1,4 +1,9 @@
 .env
-**/__Pycache__/*
 .pytest_cache
-venv
+venv/*
+.coverage
+htmlcov
+managetests.py
+__pycache__
+*.pyc
+./app.*pyc
