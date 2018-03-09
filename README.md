@@ -7,21 +7,34 @@ python3.5
 
 ## installation
 clone the repo:
-\*$https://github.com/boydbugle/weConnect.git\*
+``` 
+$https://github.com/boydbugle/weConnect.git
+```
 
 cd into the folder:
-\*$ /weConnect\*
+```
+$ /weConnect
+```
+
 
 create a virtual environment for the project:
-\* $ virtualenv --python=python3.5 virtualenv-name\*
+```
+$ virtualenv --python=python3.5 virtualenv-name
+```
 
 activate the virtual environment:
-\* $ source virtualenv-name/bin/activate \*
+```
+$ source virtualenv-name/bin/activate 
+```
 
 use virtualenv-wrapper alternative:
-\* $ mkvirtualenv --python=python3.5 virtualenv-name\*
+```
+$ mkvirtualenv --python=python3.5 virtualenv-name
+```
 
 to use it:
-\*$ workon virtualenv-name\*
+``` 
+$ workon virtualenv-name
+```
 
-remember to run \* $ pip install -r requirrements.txt\* to install libraries
+remember to run ``` $ pip install -r requirrements.txt ```to install libraries
