@@ -13,7 +13,7 @@ $https://github.com/boydbugle/weConnect.git
 
 cd into the folder:
 ```
-$ /weConnect
+$ cd /weConnect
 ```
 
 
